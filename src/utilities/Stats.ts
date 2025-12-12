@@ -5,3 +5,9 @@ export interface Stats {
   intelligence: number;
   critical: number;
 }
+
+export interface StatSetGet {
+  setStats(stats: Stats):void;
+  getStats(): Stats;
+
+}

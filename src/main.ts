@@ -2,6 +2,7 @@ import MainScene from "./scenes/MainScene";
 import BootScene  from "./scenes/BootScene";
 import { GameManagerScene } from "./scenes/GameManagerScene";
 import Phaser from "phaser";
+import BattleScene from "./scenes/BattleScene";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -9,7 +10,10 @@ const config: Phaser.Types.Core.GameConfig = {
   height: 160 * 2,
   parent: "main",
   pixelArt: true,
-  scene: [BootScene, GameManagerScene, MainScene],
+  physics: {
+    default: "arcade",
+  },
+  scene: [BootScene, GameManagerScene, MainScene, BattleScene],
 };
 
 new Phaser.Game(config);

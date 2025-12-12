@@ -1,8 +1,29 @@
 import Phaser from "phaser";
-export class Boss extends Phaser.GameObjects.Sprite {
+import type { Stats, StatSetGet } from "../../utilities/Stats";
+
+export class Boss extends Phaser.Physics.Arcade.Sprite implements StatSetGet{
+  private stats: Stats;
+
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene,x,y,"boss");
     scene.add.existing(this);
+    scene.physics.add.existing(this);
+
+    this.stats = {
+      health: 400,
+      mana: 200,
+      strength: 40,
+      intelligence: 30,
+      critical: 0.05,
+    };
+  }
+
+  public getStats(): Stats {
+    return this.stats;
+  }
+
+  public setStats(stats: Stats){
+    this.stats = stats;
   }
 }
 

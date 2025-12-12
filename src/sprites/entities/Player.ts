@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import type { Stats } from "../../utilities/Stats";
+import type { Stats, StatSetGet } from "../../utilities/Stats";
 
 interface MovementInput {
   up: Phaser.Input.Keyboard.Key | null;
@@ -8,13 +8,12 @@ interface MovementInput {
   right: Phaser.Input.Keyboard.Key | null;
 }
 
-export class Player extends Phaser.GameObjects.Sprite {
+export class Player extends Phaser.Physics.Arcade.Sprite implements StatSetGet {
 
   private movementInput: MovementInput;
   private stats: Stats;
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    
     super(scene, x, y, "mage");
     this.movementInput = {
       up: scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
@@ -32,12 +31,18 @@ export class Player extends Phaser.GameObjects.Sprite {
     };
 
     scene.add.existing(this);
+    scene.physics.add.existing(this);
 
   }
+  public getStats(): Stats {
+    return this.stats;
+  }
 
+  public setStats(stats: Stats){
+    this.stats = stats;
+  }
   protected preUpdate(time: number, delta: number): void {
     super.preUpdate(time,delta);
-
     const dt = delta / 1000;
 
     let dx = 0;

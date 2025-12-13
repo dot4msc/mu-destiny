@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import type { Stats, StatSetGet } from "../../utilities/Stats";
+import type { Stats, HasStats } from "../../utilities/Stats";
 
 interface MovementInput {
   up: Phaser.Input.Keyboard.Key | null;
@@ -8,7 +8,7 @@ interface MovementInput {
   right: Phaser.Input.Keyboard.Key | null;
 }
 
-export class Player extends Phaser.Physics.Arcade.Sprite implements StatSetGet {
+export class Player extends Phaser.Physics.Arcade.Sprite implements HasStats {
 
   private movementInput: MovementInput;
   private stats: Stats;

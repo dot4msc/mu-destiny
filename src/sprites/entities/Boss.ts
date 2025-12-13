@@ -1,7 +1,7 @@
 import Phaser from "phaser";
-import type { Stats, StatSetGet } from "../../utilities/Stats";
+import type { HasStats, Stats } from "../../utilities/Stats";
 
-export class Boss extends Phaser.Physics.Arcade.Sprite implements StatSetGet{
+export class Boss extends Phaser.Physics.Arcade.Sprite implements HasStats{
   private stats: Stats;
 
   constructor(scene: Phaser.Scene, x: number, y: number) {

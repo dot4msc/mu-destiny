@@ -6,7 +6,7 @@ export interface Stats {
   critical: number;
 }
 
-export interface StatSetGet {
+export interface HasStats {
   setStats(stats: Stats):void;
   getStats(): Stats;
 

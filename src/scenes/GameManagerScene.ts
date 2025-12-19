@@ -1,25 +1,32 @@
 import Phaser from "phaser";
-import { Boss } from "../sprites/entities/Boss";
-import { Player } from "../sprites/entities/Player";
+import type { Stats } from "../utilities/Stats";
 
 export class GameManagerScene extends Phaser.Scene {
-  private player!: Player;
-  private boss!: Boss;
+  private _playerStats: Stats = {
+    health: 100,
+    mana: 200,
+    strength: 10,
+    intelligence: 40,
+    critical: 0.05,
+  };
+
+  private _bossStatsState: Stats = {
+    health: 400,
+    mana: 200,
+    strength: 40,
+    intelligence: 30,
+    critical: 0.05,
+  };
 
   constructor(){
     super({key: "game-manager-scene"});
   }
 
-  create(){
-    this.player = new Player(this,0,0);
-    this.boss = new Boss(this,0,0);
+  get playerStats():Stats {
+    return this._playerStats;
   }
-
-  public getPlayer(): Player {
-    return this.player;
-  }
-
-  public getBoss(): Boss {
-    return this.boss;
+  
+  get bossStats(): Stats {
+    return this._bossStatsState;
   }
 }

@@ -7,7 +7,7 @@ export interface Stats {
 }
 
 export interface HasStats {
-  setStats(stats: Stats):void;
-  getStats(): Stats;
+  get stats(): Stats;
+  applyState(statsPatch:Partial<Stats>): void;
 
 }

@@ -11,9 +11,9 @@ interface MovementInput {
 export class Player extends Phaser.Physics.Arcade.Sprite implements HasStats {
 
   private movementInput: MovementInput;
-  private stats: Stats;
+  protected _stats: Stats;
 
-  constructor(scene: Phaser.Scene, x: number, y: number) {
+  constructor(scene: Phaser.Scene, x: number, y: number, stats?: Stats) {
     super(scene, x, y, "mage");
     this.movementInput = {
       up: scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
@@ -22,25 +22,21 @@ export class Player extends Phaser.Physics.Arcade.Sprite implements HasStats {
       right: scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
     };
 
-    this.stats = {
-      health: 100,
-      mana: 200,
-      strength: 10,
-      intelligence: 40,
-      critical: 0.05,
-    };
+    this._stats = stats ? stats : { health: 100, mana: 200, strength: 10, intelligence: 40, critical: 0.05 };
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
   }
-  public getStats(): Stats {
-    return this.stats;
+
+  applyState(statsPatch: Partial<Stats>) : void{
+    Object.assign(this._stats, statsPatch);
   }
 
-  public setStats(stats: Stats){
-    this.stats = stats;
+  get stats(): Stats {
+    return this._stats;
   }
+
   protected preUpdate(time: number, delta: number): void {
     super.preUpdate(time,delta);
     const dt = delta / 1000;
